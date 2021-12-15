@@ -21,6 +21,9 @@ body {
   */
   padding-block-start: var(--space-xs);
   padding-block-end: var(--space-xs);
+
+  background: var(--surface1);
+  color: var(--text1);
 }
 
 /* 
@@ -49,6 +52,23 @@ small {
   --space-lg: 2rem;
   --space-xl: 3rem;
   --space-xxl: 6rem;
+  /* colors using HSL */
+  --hue: 200;
+  --saturation: 100%;
+  --lightness: 50%;
+
+  --brand: hsl(var(--hue) calc(var(--saturation) / 2) var(--lightness));
+
+  /* Staying within hue is a strong way to create design harmony */
+  --text1: hsl(var(--hue) 15% 85%);
+  --text2: hsl(var(--hue) 15% 65%);
+
+  --surface1: hsl(var(--hue) 10% 10%);
+  --surface2: hsl(var(--hue) 10% 15%);
+  --surface3: hsl(var(--hue) 5% 20%);
+  --surface4: hsl(var(--hue) 5% 25%);
+
+  color-scheme: dark light;
 }
 
 main {
@@ -91,6 +111,9 @@ fieldset {
   gap: 1px; /* Instead of using borders - this is more concise */
   border-radius: var(--space-sm);
   overflow: hidden;
+
+  border: 1px solid var(--surface4);
+  background: var(--surface4);
 }
 
 .fieldset-item {
@@ -98,6 +121,8 @@ fieldset {
   grid-template-columns: var(--space-lg) 1fr;
   gap: var(--space-md);
   padding: var(--space-sm) var(--space-md);
+
+  background: var(--surface3);
 }
 
 @media (min-width: 540px) {
@@ -116,6 +141,8 @@ fieldset {
   block-size: var(--space-xl); /* height */
   inline-size: var(--space-xl); /* width  */
   clip-path: circle(50%); /* clipping */
+
+  background: var(--surface4);
 }
 
 .fieldset-item > :is(picture, input[type="checkbox"]) {
@@ -124,11 +151,21 @@ fieldset {
 
 .fieldset-item svg {
   block-size: var(--space-md); /* sets the size of the svg icon */
+
+  fill: var(--text2);
+}
+
+.fieldset-item:focus-within svg {
+  fill: var(--brand);
 }
 
 .sm-stack {
   display: grid;
   gap: var(--space-xs);
+}
+
+small {
+  color: var(--text2);
 }
 
 /* increasing size of checkbox */
@@ -158,5 +195,19 @@ form {
 @media (orientation: landscape) and (min-width: 640px) {
   form {
     --repeat: 2;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --brand: hsl(var(--hue) var(--saturation) var(--lightness));
+    --text1: hsl(var(--hue) var(--saturation) 10%);
+
+    --text2: hsl(var(--hue) calc(var(--saturation) / 2) 30%);
+
+    --surface1: hsl(var(--hue) 20% 90%);
+    --surface2: hsl(var(--hue) 10% 99%);
+    --surface3: hsl(var(--hue) 10% 96%);
+    --surface4: hsl(var(--hue) 10% 85%);
   }
 }
