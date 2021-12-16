@@ -114,6 +114,12 @@ fieldset {
 
   border: 1px solid var(--surface4);
   background: var(--surface4);
+
+  transition: box-shadow 0.3s ease;
+}
+
+fieldset:focus-within {
+  box-shadow: 0 5px 20px -10px hsl(0 0% 0% / 50%);
 }
 
 .fieldset-item {
@@ -123,6 +129,12 @@ fieldset {
   padding: var(--space-sm) var(--space-md);
 
   background: var(--surface3);
+
+  transition: background 0.2s ease;
+}
+
+.fieldset-item:focus-within {
+  background: var(--surface2);
 }
 
 @media (min-width: 540px) {
@@ -145,6 +157,20 @@ fieldset {
   background: var(--surface4);
 }
 
+/* Only when user has not set a preference for reduced-motion */
+@media (prefers-reduced-motion: no-preference) {
+  .fieldset-item > picture {
+    clip-path: circle(40%); /* 1. starts at 40% then to original size ... */
+    transition: clip-path 0.3s ease;
+  }
+
+  .fieldset-item:focus-within picture {
+    clip-path: circle(
+      50%
+    ); /* 2. ... and when it receives focus we'll increase it */
+  }
+}
+
 .fieldset-item > :is(picture, input[type="checkbox"]) {
   place-self: center;
 }
@@ -155,6 +181,7 @@ fieldset {
   fill: var(--text2);
 }
 
+/* Focus within pseudo selector allows us to target specific elements when another has focus */
 .fieldset-item:focus-within svg {
   fill: var(--brand);
 }
@@ -189,7 +216,10 @@ input[type="checkbox"] {
 
 form {
   --repeat: auto-fit;
-  grid-template-columns: repeat(var(--repeat), minmax(min(10ch, 100%), 35ch));
+  grid-template-columns: repeat(
+    var(--repeat),
+    minmax(min(10ch, 100%), 35ch)
+  ); /* character units */
 }
 
 @media (orientation: landscape) and (min-width: 640px) {
